@@ -1,0 +1,21 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  # list all file config for cluster
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    # all things is going to be build
+    - image: thinhbuihong/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        # how to handle changes
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
