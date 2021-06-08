@@ -17,6 +17,12 @@ spec:
       containers:
         - name: auth
           image: thinhbuihong/auth
+          env:
+            - name: JWT_KEY #name for auth container access in env
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_key
 ---
 apiVersion: v1
 kind: Service

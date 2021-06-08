@@ -19,3 +19,4 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+# kubectl create secret generic jwt-secret --from-liteal=JWT_key=thinhdepzai
