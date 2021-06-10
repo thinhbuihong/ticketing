@@ -19,4 +19,13 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-# kubectl create secret generic jwt-secret --from-liteal=JWT_key=thinhdepzai
+    # kubectl create secret generic jwt-secret --from-liteal=JWT_key=thinhdepzai
+    - image: thinhbuihong/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        # how to handle changes
+        manual:
+          - src: "**/*.js"
+            dest: .
