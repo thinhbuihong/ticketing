@@ -504,6 +504,19 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@thinhbh/common@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@thinhbh/common/-/common-1.0.2.tgz#d19af7a1a0c9a958b4e822ed8f3d2b23b2532a4f"
+  integrity sha512-8PpNyR1XyyZG+0DcIDbhSg+KbVpX7UkdUYZSDHnij9T9EKrg6jOnUI60DrQjOCSNALp4w/quLX5qnw0Fa2fOqw==
+  dependencies:
+    "@types/cookie-session" "^2.0.42"
+    "@types/express" "^4.17.12"
+    "@types/jsonwebtoken" "^8.5.1"
+    cookie-session "^1.4.0"
+    express "^4.17.1"
+    express-validator "^6.11.1"
+    jsonwebtoken "^8.5.1"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"

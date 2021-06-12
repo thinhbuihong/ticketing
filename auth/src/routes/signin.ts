@@ -1,8 +1,7 @@
 import express, { Request, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
 import { body } from "express-validator";
-import { BadRequestError } from "../errors/bad-request-error";
-import { validateRequest } from "../middlewares/validate-request";
+import { BadRequestError, validateRequest } from "@thinhbh/common";
 import { User } from "../models/user";
 import { Password } from "../services/password";
 import jwt from "jsonwebtoken";
