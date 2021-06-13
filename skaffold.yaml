@@ -29,3 +29,12 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
+    - image: thinhbuihong/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        # how to handle changes
+        manual:
+          - src: "**/*.ts"
+            dest: .
