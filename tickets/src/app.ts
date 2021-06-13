@@ -3,6 +3,7 @@ import express from "express";
 import asyncHandler from "express-async-handler";
 import { NotFoundError, errorHandler, currentUser } from "@thinhbh/common";
 import createTicketRouter from "./routes/create";
+import getOneTicketRouter from "./routes/getOne";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(
 //check jwt + add currentUser in incomming req
 app.use(currentUser);
 app.use(createTicketRouter);
+app.use(getOneTicketRouter);
 
 app.all(
   "*",
