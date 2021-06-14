@@ -1,12 +1,11 @@
-import { Express } from "express";
 import jwt from "jsonwebtoken";
-import request from "supertest";
+import mongoose from "mongoose";
 
 export const signinCookie = () => {
   //build a payload for jwt
   const payload = {
     email: "test@gmail.com",
-    id: "60c56bc076ed8b0023f40158",
+    id: mongoose.Types.ObjectId().toHexString(),
   };
   //create the jwt
   const token = jwt.sign(payload, process.env.JWT_KEY!);

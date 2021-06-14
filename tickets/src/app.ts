@@ -4,6 +4,8 @@ import asyncHandler from "express-async-handler";
 import { NotFoundError, errorHandler, currentUser } from "@thinhbh/common";
 import createTicketRouter from "./routes/create";
 import getOneTicketRouter from "./routes/getOne";
+import getListTicketRouter from "./routes/getList";
+import updateTicketRouter from "./routes/update";
 
 const app = express();
 
@@ -18,8 +20,11 @@ app.use(
 
 //check jwt + add currentUser in incomming req
 app.use(currentUser);
+
 app.use(createTicketRouter);
 app.use(getOneTicketRouter);
+app.use(getListTicketRouter);
+app.use(updateTicketRouter);
 
 app.all(
   "*",
