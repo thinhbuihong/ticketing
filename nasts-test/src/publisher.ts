@@ -1,4 +1,6 @@
 import nats from "node-nats-streaming";
+import { Subjects } from "./events/subjects";
+import { TicketCreatedPublisher } from "./events/ticket-created-publisher";
 
 const stan = nats.connect("ticketing", "abc", {
   url: "https://localhost:4222",
@@ -6,19 +8,19 @@ const stan = nats.connect("ticketing", "abc", {
 
 console.clear();
 
-stan.on("connect", () => {
+stan.on("connect", async () => {
   console.log("publisher connected to NATS");
 
-  const data = JSON.stringify({
-    id: "123",
-    title: "concert",
-    price: 20,
-  });
-
-  stan.publish("ticket:created", data, () => {
-    //cb involed after pushlish data
-    console.log("event pushlised");
-  });
+  const publisher = new TicketCreatedPublisher(stan);
+  try {
+    await publisher.publish({
+      id: "asd",
+      title: "concert",
+      price: 30,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // kubectl port-forward nats-depl-547f995f7f-c2v9s 4222:4222
