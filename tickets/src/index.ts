@@ -10,9 +10,22 @@ const start = async () => {
   if (!process.env.MONGO_URI) {
     throw new Error("MONGO_URI must be defined");
   }
+  if (!process.env.NATS_CLIENT_ID) {
+    throw new Error("NAT CLIENT ID not found");
+  }
+  if (!process.env.NATS_URL) {
+    throw new Error("NATS_URI must be defined");
+  }
+  if (!process.env.NATS_CLUSTER_ID) {
+    throw new Error("NATS CLUSTER ID must be defined");
+  }
 
   try {
-    await natsWrapper.connect("ticketing", "client1", "http:nats-srv:4222");
+    await natsWrapper.connect(
+      process.env.NATS_CLUSTER_ID,
+      process.env.NATS_CLIENT_ID,
+      process.env.NATS_URL
+    );
     natsWrapper.client.on("close", () => {
       console.log("NATS connetion closed!");
       process.exit();

@@ -2,6 +2,7 @@ import request from "supertest";
 import mongoose from "mongoose";
 import app from "../../app";
 import { signinCookie } from "../../helper/signinCookie";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("returns a 404 if the provided id does no exist", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -99,4 +100,5 @@ it("update the ticket success", async () => {
 
   expect(newTicket.body.title).toEqual("update title");
   expect(newTicket.body.price).toEqual(20);
+  expect(natsWrapper.client.publish).toBeCalled();
 });
