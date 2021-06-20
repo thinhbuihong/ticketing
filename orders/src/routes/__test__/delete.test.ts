@@ -4,8 +4,9 @@ import app from "../../app";
 import { signinCookie } from "../../helper/signinCookie";
 import { Order } from "../../models/order";
 import { Ticket } from "../../models/ticket";
+import { natsWrapper } from "../../nats-wrapper";
 
-it("marks an order as cancelled", async () => {
+it("marks an order as cancelled and publish event", async () => {
   //create a ticket with ticket model
   const ticket = Ticket.build({
     title: "ticket title",
@@ -33,6 +34,5 @@ it("marks an order as cancelled", async () => {
   const updatedOrder = await Order.findById(order.id);
 
   expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
+  expect(natsWrapper.client.publish).toBeCalled();
 });
-
-it.todo("emits a order cancelled event");
