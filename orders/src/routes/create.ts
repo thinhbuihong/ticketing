@@ -34,15 +34,18 @@ createOrderRouter.post(
     if (!ticket) {
       throw new NotFoundError();
     }
+
     //make sure that this ticket is not already reserved
     //find order contain that ticket, check status not calcelled => the ticket is reserved
     const isReserved = await ticket.isReserved();
     if (isReserved) {
       throw new BadRequestError("Ticket is alreadly reserved");
     }
+
     //calculate an expiration data for this order
     const expiration = new Date();
     expiration.setSeconds(expiration.getSeconds() + EXP_S);
+
     //build the order and save it to the database
     const order = Order.build({
       userId: req.currentUser!.id,
@@ -51,6 +54,7 @@ createOrderRouter.post(
       ticket,
     });
     await order.save();
+
     // publish an event saying that an order was created
 
     res.status(201).send(order);

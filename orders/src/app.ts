@@ -1,8 +1,11 @@
+import { currentUser, errorHandler, NotFoundError } from "@thinhbh/common";
 import cookieSession from "cookie-session";
 import express from "express";
 import asyncHandler from "express-async-handler";
-import { NotFoundError, errorHandler, currentUser } from "@thinhbh/common";
 import createOrderRouter from "./routes/create";
+import deleteOrderRouter from "./routes/delete";
+import getOrderRouter from "./routes/getOrder";
+import getOrdersListByUserIdRouter from "./routes/getOrdersListByUserId";
 
 const app = express();
 
@@ -19,6 +22,9 @@ app.use(
 app.use(currentUser);
 
 app.use(createOrderRouter);
+app.use(getOrdersListByUserIdRouter);
+app.use(getOrderRouter);
+app.use(deleteOrderRouter);
 
 app.all(
   "*",

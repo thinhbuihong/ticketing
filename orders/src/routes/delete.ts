@@ -1,9 +1,36 @@
+import {
+  NotAuthorizedError,
+  NotFoundError,
+  OrderStatus,
+  requireAuth,
+} from "@thinhbh/common";
 import express, { Request, Response } from "express";
+import { Order } from "../models/order";
 
-const router = express.Router();
+const deleteOrderRouter = express.Router();
 
-router.get("/api/orders", async (req: Request, res: Response) => {
-  res.send({});
-});
+deleteOrderRouter.delete(
+  "/api/orders/:orderId",
+  requireAuth,
+  async (req: Request, res: Response) => {
+    const { orderId } = req.params;
 
-export default router;
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      throw new NotFoundError();
+    }
+    if (order.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
+
+    order.status = OrderStatus.Cancelled;
+    await order.save();
+
+    //publishing an event saying this was cancelled
+
+    res.status(204).send(order);
+  }
+);
+
+export default deleteOrderRouter;
