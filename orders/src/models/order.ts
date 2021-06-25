@@ -12,6 +12,7 @@ interface OrderAttrs {
 interface OrderDoc extends OrderAttrs, mongoose.Document {
   createAt: string;
   updateAt: string;
+  version: number;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {

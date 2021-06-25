@@ -1,15 +1,20 @@
 import { OrderStatus } from "@thinhbh/common";
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { Order } from "./order";
 
 interface TicketAttrs {
   title: string;
   price: number;
+  id: string;
 }
 
-export interface TicketDoc extends mongoose.Document, TicketAttrs {
+export interface TicketDoc extends mongoose.Document {
+  title: string;
+  price: number;
   createAt: string;
   updateAt: string;
+  version: number;
   isReserved(): Promise<boolean>;
 }
 
@@ -40,8 +45,19 @@ const ticketSchema = new mongoose.Schema<TicketDoc, TicketModel>(
   }
 );
 
+ticketSchema.set("versionKey", "version");
+ticketSchema.plugin(
+  (schema: mongoose.Schema<TicketDoc, TicketModel>, opts?: any) => {
+    updateIfCurrentPlugin(schema as mongoose.Schema, opts);
+  }
+);
+
 ticketSchema.static("build", (attrs: TicketAttrs) => {
-  return new Ticket(attrs);
+  return new Ticket({
+    _id: attrs.id,
+    title: attrs.title,
+    price: attrs.price,
+  });
 });
 
 ticketSchema.methods.isReserved = async function () {

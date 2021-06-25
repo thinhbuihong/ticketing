@@ -31,6 +31,7 @@ createTicketRouter.post(
       title: ticket.title,
       price: Number(ticket.price),
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     res.status(201).send(ticket);
