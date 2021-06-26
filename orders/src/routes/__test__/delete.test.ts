@@ -1,4 +1,5 @@
 import { OrderStatus } from "@thinhbh/common";
+import mongoose from "mongoose";
 import request from "supertest";
 import app from "../../app";
 import { signinCookie } from "../../helper/signinCookie";
@@ -11,6 +12,7 @@ it("marks an order as cancelled and publish event", async () => {
   const ticket = Ticket.build({
     title: "ticket title",
     price: 20,
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
 

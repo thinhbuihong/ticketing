@@ -1,5 +1,6 @@
 import { OrderStatus } from "@thinhbh/common";
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { TicketDoc } from "./ticket";
 
 interface OrderAttrs {
@@ -47,6 +48,13 @@ const orderSchema = new mongoose.Schema<OrderDoc, OrderModel>(
         delete ret._id;
       },
     },
+  }
+);
+
+orderSchema.set("versionKey", "version");
+orderSchema.plugin(
+  (schema: mongoose.Schema<OrderDoc, OrderModel>, opts?: any) => {
+    updateIfCurrentPlugin(schema as mongoose.Schema, opts);
   }
 );
 

@@ -1,4 +1,5 @@
 import request from "supertest";
+import mongoose from "mongoose";
 import app from "../../app";
 import { signinCookie } from "../../helper/signinCookie";
 import { Ticket } from "../../models/ticket";
@@ -7,6 +8,7 @@ const buildTicket = async () => {
   const ticket = Ticket.build({
     title: "ticket title",
     price: 20,
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
 
