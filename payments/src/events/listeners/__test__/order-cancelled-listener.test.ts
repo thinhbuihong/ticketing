@@ -1,53 +1,47 @@
-// import { OrderCancelledEvent, Subjects } from "@thinhbh/common";
-// import mongoose from "mongoose";
-// import { Message } from "node-nats-streaming";
-// import Ticket from "../../../models/ticket";
-// import { natsWrapper } from "../../../nats-wrapper";
-// import { OrderCancelledListener } from "../order-cancelled-listener";
+import { Message } from "node-nats-streaming";
+import { Order } from "../../../models/order";
+import mongoose from "mongoose";
+import { natsWrapper } from "../../../nats-wrapper";
+import { OrderCancelledListener } from "../order-cancelled-listener";
+import { OrderCancelledEvent, OrderStatus } from "@thinhbh/common";
 
-// describe("order created listener", () => {
-//   const setup = async () => {
-//     const listener = new OrderCancelledListener(natsWrapper.client);
+describe("order created listener", () => {
+  const setup = async () => {
+    const listener = new OrderCancelledListener(natsWrapper.client);
 
-//     const ticket = Ticket.build({
-//       title: "concert",
-//       price: 90,
-//       userId: "userId1",
-//     });
+    const order = Order.build({
+      id: mongoose.Types.ObjectId().toHexString(),
+      status: OrderStatus.Created,
+      price: 10,
+      userId: "user1",
+      version: 0,
+    });
+    await order.save();
 
-//     const orderId = mongoose.Types.ObjectId().toHexString();
-//     ticket.set({ orderId });
-//     await ticket.save();
+    const data: OrderCancelledEvent["data"] = {
+      id: order.id,
+      version: 1,
+      ticket: {
+        id: "ticket1",
+      },
+    };
 
-//     const data: OrderCancelledEvent["data"] = {
-//       id: mongoose.Types.ObjectId().toHexString(),
-//       version: 0,
-//       ticket: {
-//         id: ticket.id,
-//       },
-//     };
+    //@ts-ignore
+    const msg: Message = {
+      ack: jest.fn(),
+    };
 
-//     //@ts-ignore
-//     const msg: Message = {
-//       ack: jest.fn(),
-//     };
+    return { listener, order, data, msg };
+  };
 
-//     return { listener, ticket, data, msg, orderId };
-//   };
+  it("updates the status of the order", async () => {
+    const { listener, data, msg, order } = await setup();
 
-//   it("updates the ticket, publishes an event ", async () => {
-//     const { msg, data, ticket, listener } = await setup();
+    await listener.onMessage(data, msg);
 
-//     await listener.onMessage(data, msg);
+    const updatedOrder = await Order.findById(order.id);
 
-//     const updatedTicket = await Ticket.findById(ticket.id);
-
-//     expect(updatedTicket?.orderId).not.toBeDefined();
-//     expect(msg.ack).toHaveBeenCalled();
-//     expect(natsWrapper.client.publish).toHaveBeenCalledWith(
-//       Subjects.TicketUpdated,
-//       expect.anything(),
-//       expect.anything()
-//     );
-//   });
-// });
+    expect(updatedOrder?.status).toEqual(OrderStatus.Cancelled);
+    expect(msg.ack).toHaveBeenCalled();
+  });
+});

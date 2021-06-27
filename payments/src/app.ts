@@ -2,6 +2,7 @@ import cookieSession from "cookie-session";
 import express from "express";
 import asyncHandler from "express-async-handler";
 import { NotFoundError, errorHandler, currentUser } from "@thinhbh/common";
+import createPaymentRouter from "./routes/create";
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use(
 
 //check jwt + add currentUser in incomming req
 app.use(currentUser);
+
+app.use(createPaymentRouter);
 
 app.all(
   "*",
