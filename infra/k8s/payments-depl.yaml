@@ -19,7 +19,7 @@ spec:
           image: thinhbuihong/payments
           env:
             - name: MONGO_URI
-              value: "mongodb://payments-mongo-srv:27017/paymentes"
+              value: "mongodb://payments-mongo-srv:27017/payments"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -33,6 +33,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: STRIKE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_KEY
 ---
 apiVersion: v1
 kind: Service
