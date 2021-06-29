@@ -19,7 +19,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    # kubectl create secret generic jwt-secret --from-liteal=JWT_key=thinhdepzai
+    # kubectl create secret generic jwt-secret --from-literal JWT_key=thinhdepzai
     # kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_51J79rzICDOVuJZn538Bth2zACh4YmZXHW6HkONnLG2nzo0xErcb9dxm383PMMSmylNcrkCi13vrO3pqooV6ieHUY00WROJhkO3
     - image: thinhbuihong/client
       context: client
