@@ -512,7 +512,7 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@thinhbh/common@^1.0.10":
+"@thinhbh/common@^1.0.11":
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/@thinhbh/common/-/common-1.0.11.tgz#662f1299f292482c6bafe507eef983cd8268f7f8"
   integrity sha512-IMiDBKIzB8+3MqrNnkX8NY832mnBKTn+1MWfdwe5nBVUgZ9A2PjOUmz2GoiKg7zPfj3C87R1HSefoBPjXWZzxw==
