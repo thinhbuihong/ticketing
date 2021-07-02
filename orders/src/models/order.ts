@@ -6,7 +6,7 @@ import { TicketDoc } from "./ticket";
 interface OrderAttrs {
   userId: string;
   status: OrderStatus; //expired,paind,pending
-  expiresAt: Date;
+  expireAt: Date;
   ticket: TicketDoc;
 }
 
@@ -32,7 +32,7 @@ const orderSchema = new mongoose.Schema<OrderDoc, OrderModel>(
       enum: Object.values(OrderStatus),
       default: OrderStatus.Created,
     },
-    expiresAt: {
+    expireAt: {
       type: mongoose.Schema.Types.Date,
     },
     ticket: {

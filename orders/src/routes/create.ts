@@ -52,7 +52,7 @@ createOrderRouter.post(
     const order = Order.build({
       userId: req.currentUser!.id,
       status: OrderStatus.Created,
-      expiresAt: expiration,
+      expireAt: expiration,
       ticket,
     });
     await order.save();
@@ -62,7 +62,7 @@ createOrderRouter.post(
       id: order.id,
       status: order.status,
       userId: order.userId,
-      expireAt: order.expiresAt.toISOString(),
+      expireAt: order.expireAt.toISOString(),
       ticket: {
         id: ticket.id,
         price: ticket.price,

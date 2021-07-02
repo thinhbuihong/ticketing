@@ -25,7 +25,7 @@ describe("expiration complete listener", () => {
     const order = Order.build({
       status: OrderStatus.Created,
       userId: "user1",
-      expiresAt: new Date(),
+      expireAt: new Date(),
       ticket,
     });
     await order.save();

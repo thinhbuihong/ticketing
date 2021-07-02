@@ -29,7 +29,7 @@ it("returns an error if the ticket is already reserved", async () => {
     ticket,
     userId: "userid1",
     status: OrderStatus.Created,
-    expiresAt: new Date(),
+    expireAt: new Date(),
   });
   await order.save();
 
