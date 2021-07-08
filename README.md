@@ -6,6 +6,6 @@ This is the project that I use to learn microservice
 
 Technologies used
 - Express, TypeScript, bcryptjs, jsonwebtoken, node-nats-streaming
-- - MongoDB
+- MongoDB
 - Jest, supertest, mongodb-memory-server
 - Docker, skaffold
