@@ -32,7 +32,8 @@ const LandingPage = ({ currentUser, tickets }) => {
     </div>
   )
 }
-
+//dc goi khi render tu server
+//hoac tu page khac tu browser
 LandingPage.getInitialProps = async (context, client, currentUser) => {
   const { data } = await client.get('/api/tickets');
 
