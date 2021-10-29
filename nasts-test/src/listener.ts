@@ -4,9 +4,13 @@ import { TicketCreatedListener } from "./events/ticket-created-listener";
 
 console.clear();
 
-const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
-  url: "https://localhost:4222",
-});
+const stan = nats.connect(
+  "ticketing", //cluster id
+  randomBytes(4).toString("hex"), //id cua client
+  {
+    url: "https://localhost:4222",
+  }
+);
 
 stan.on("close", () => {
   console.log("nats connection close");

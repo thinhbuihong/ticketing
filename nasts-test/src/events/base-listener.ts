@@ -26,22 +26,26 @@ export abstract class Listener<T extends Event> {
   subscriptionOptions(): SubscriptionOptions {
     return this.client
       .subscriptionOptions()
-      .setDeliverAllAvailable()
+      .setDeliverAllAvailable() //send all event that we emited in the past
       .setManualAckMode(true)
       .setAckWait(this.ackWait)
-      .setDurableName(this.queueGroupName);
+      .setDurableName(this.queueGroupName); //luu nhung da ack va chua ack cua subscription id
   }
 
   listen() {
     //set up subscription
     const subscription: Subscription = this.client.subscribe(
       this.subject,
-      this.queueGroupName,
+      this.queueGroupName, //nhung listener ma sub queue group chi gui den listener 1 lan
       this.subscriptionOptions()
     );
 
     subscription.on("message", (msg: Message) => {
-      console.log(`Message received: ${this.subject} / ${this.queueGroupName}`);
+      console.log(
+        `Message received: ${this.subject} / ${
+          this.queueGroupName
+        } [${msg.getSequence()}]`
+      );
 
       const parsedData = this.parseMessage(msg);
       this.onMessage(parsedData, msg);

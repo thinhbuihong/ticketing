@@ -15,20 +15,19 @@ spec:
       containers:
         - name: nats
           image: nats-streaming:0.17.0
-          args:
-            [
+          args: [
               "-p",
               "4222",
               "-m",
               "8222",
-              "-hbi",
+              "-hbi", #check client = send heartbeat request
               "5s",
-              "-hbt",
+              "-hbt", # how long client has to response
               "5s",
-              "-hbf",
+              "-hbf", #number of fail
               "2",
               "-SD",
-              "-cid",
+              "-cid", #name cua cluster id
               "ticketing",
             ]
 ---
