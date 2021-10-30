@@ -4,6 +4,8 @@ import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 interface TicketAttrs {
   title: string;
   price: number;
+  // userId: mongoose.ObjectId;
+  // userId: mongoose.Schema.Types.ObjectId;
   userId: string;
 }
 

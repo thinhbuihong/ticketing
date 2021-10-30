@@ -63,6 +63,7 @@ createOrderRouter.post(
       status: order.status,
       userId: order.userId,
       expireAt: order.expireAt.toISOString(),
+      //date -> string theo cai time zone
       ticket: {
         id: ticket.id,
         price: ticket.price,
