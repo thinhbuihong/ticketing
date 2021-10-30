@@ -16,6 +16,7 @@ export abstract class Listener<T extends Event> {
   abstract subject: T["subject"]; //name of channel
   abstract queueGroupName: string; //also use for durablename
   abstract onMessage(data: T["data"], msg: Message): void; //function run when message is received
+
   protected ackWait: number = 5 * 1000;
   private client: Stan; //nats connected
 
@@ -47,15 +48,50 @@ export abstract class Listener<T extends Event> {
         } [${msg.getSequence()}]`
       );
 
-      const parsedData = this.parseMessage(msg);
+      const parsedData = parseMessage(msg);
       this.onMessage(parsedData, msg);
     });
   }
-
-  parseMessage(msg: Message) {
-    const data = msg.getData();
-    return typeof data === "string"
-      ? JSON.parse(data)
-      : JSON.parse(data.toString("utf8"));
-  }
 }
+
+export function functionListener<T extends Event>({
+  client,
+  subject,
+  queueGroupName,
+  onMessage,
+  ackWait = 5 * 1000,
+}: {
+  client: Stan;
+  subject: T["subject"];
+  queueGroupName: string;
+  onMessage: (data: T["data"], msg: Message) => void;
+  ackWait?: number;
+}) {
+  const subscriptionOptions: SubscriptionOptions = client
+    .subscriptionOptions()
+    .setDeliverAllAvailable()
+    .setManualAckMode(true)
+    .setAckWait(ackWait)
+    .setDurableName(queueGroupName);
+
+  const subscription: Subscription = client.subscribe(
+    subject,
+    queueGroupName,
+    subscriptionOptions
+  );
+
+  subscription.on("message", (msg: Message) => {
+    console.log(
+      `Message received: ${subject} / ${queueGroupName} [${msg.getSequence()}]`
+    );
+
+    const parsedData: T["data"] = parseMessage(msg);
+    onMessage(parsedData, msg);
+  });
+}
+export const parseMessage = (msg: Message) => {
+  const data = msg.getData();
+  return typeof data === "string"
+    ? JSON.parse(data)
+    : JSON.parse(data.toString("utf8"));
+};

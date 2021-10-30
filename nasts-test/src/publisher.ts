@@ -8,6 +8,11 @@ const stan = nats.connect("ticketing", "abc", {
 
 console.clear();
 
+stan.on("close", () => {
+  console.log("nats connection close");
+  process.exit();
+});
+
 stan.on("connect", async () => {
   console.log("publisher connected to NATS");
 
