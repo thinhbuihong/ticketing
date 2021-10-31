@@ -10,6 +10,7 @@ const TicketShow = ({ ticket }) => {
 		},
 	}, order => {
 		console.log(order);
+		//1 la url trong pages, 2 la url chinh xac
 		Router.push('/orders/[orderId]', `/orders/${order.id}`);
 	})
 	return <div>

@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 
 jest.mock("../nats-wrapper");
 
+//set stripe api key
+
 let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = "thinhdepzai";
