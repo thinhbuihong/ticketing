@@ -54,7 +54,7 @@ ticketSchema.set("versionKey", "version");
 //plugin increate document version number each save
 ticketSchema.plugin(
   (schema: mongoose.Schema<TicketDoc, TicketModel>, opts?: any) => {
-    updateIfCurrentPlugin(schema as mongoose.Schema, opts);
+    updateIfCurrentPlugin(schema as unknown as mongoose.Schema, opts);
   }
 );
 

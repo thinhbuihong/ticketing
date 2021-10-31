@@ -54,7 +54,7 @@ const orderSchema = new mongoose.Schema<OrderDoc, OrderModel>(
 orderSchema.set("versionKey", "version");
 orderSchema.plugin(
   (schema: mongoose.Schema<OrderDoc, OrderModel>, opts?: any) => {
-    updateIfCurrentPlugin(schema as mongoose.Schema, opts);
+    updateIfCurrentPlugin(schema as unknown as mongoose.Schema, opts);
   }
 );
 

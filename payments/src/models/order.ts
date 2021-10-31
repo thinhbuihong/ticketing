@@ -62,7 +62,7 @@ orderSchema.static("build", (attrs: OrderAttrs) => {
 orderSchema.set("versionKey", "version");
 orderSchema.plugin(
   (schema: mongoose.Schema<OrderDoc, OrderModel>, opts?: any) => {
-    updateIfCurrentPlugin(schema as mongoose.Schema, opts);
+    updateIfCurrentPlugin(schema as unknown as mongoose.Schema, opts);
   }
 );
 
