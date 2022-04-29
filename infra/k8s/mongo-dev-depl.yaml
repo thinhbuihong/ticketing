@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-mongo-depl
+  name: mongo-dev-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tickets-mongo
+      app: mongo-dev
   template:
     metadata:
       labels:
-        app: tickets-mongo
+        app: mongo-dev
     spec:
       containers:
-        - name: tickets-mongo
+        - name: mongo-dev
           image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-mongo-srv
+  name: mongo-dev-srv
 spec:
   selector:
-    app: tickets-mongo
+    app: mongo-dev
   ports:
     - name: db
       protocol: TCP
