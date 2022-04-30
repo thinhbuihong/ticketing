@@ -19,7 +19,7 @@ spec:
           image: thinhbuihong/payments
           env:
             - name: MONGO_URI
-              value: "mongodb://payments-mongo-srv:27017/payments"
+              value: "mongodb://mongo-dev-srv:27017/payments"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

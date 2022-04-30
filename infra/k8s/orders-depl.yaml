@@ -19,7 +19,7 @@ spec:
           image: thinhbuihong/orders
           env:
             - name: MONGO_URI
-              value: "mongodb://orders-mongo-srv:27017/orders"
+              value: "mongodb://mongo-dev-srv:27017/orders"
             - name: JWT_KEY #name for tickets container access in env
               valueFrom:
                 secretKeyRef:

@@ -19,7 +19,7 @@ spec:
           image: thinhbuihong/auth
           env:
             - name: MONGO_URI
-              value: "mongodb://auth-mongo-srv:27017/auth"
+              value: "mongodb://mongo-dev-srv:27017/auth"
             - name: JWT_KEY #name for auth container access in env
               valueFrom:
                 secretKeyRef:
