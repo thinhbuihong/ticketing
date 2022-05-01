@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: expiration
-          image: thinhbuihong/expiration
+          image: us.gcr.io/formal-fragment-348815/expiration
           env:
             - name: NATS_URL
               value: "http://nats-srv:4222"
