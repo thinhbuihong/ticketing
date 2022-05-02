@@ -9,3 +9,5 @@ Technologies used
 - MongoDB
 - Jest, supertest, mongodb-memory-server
 - Docker, skaffold
+
+![image](https://user-images.githubusercontent.com/45941660/166258268-2f2a75b2-3a9e-4dbe-8a61-1865ac775e01.png)
