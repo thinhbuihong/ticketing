@@ -14,7 +14,7 @@ import expressAsyncHandler from "express-async-handler";
 import { OrderCreatedPublisher } from "../events/publishers/order-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
 
-const EXP_S = 1 * 60; //15m
+const EXP_S = 15 * 60; //15m
 
 const createOrderRouter = express.Router();
 
