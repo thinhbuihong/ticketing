@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: thinhbuihong/client
+          image: us.gcr.io/formal-fragment-348815/client
 ---
 apiVersion: v1
 kind: Service

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: payments
-          image: us.gcr.io/formal-fragment-348815/payments
+          image: thinhbuihong/payments
           env:
             - name: MONGO_URI
               value: "mongodb://mongo-dev-srv:27017/payments"

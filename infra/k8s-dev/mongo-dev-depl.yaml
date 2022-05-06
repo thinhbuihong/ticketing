@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client-depl
+  name: mongo-dev-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: client
+      app: mongo-dev
   template:
     metadata:
       labels:
-        app: client
+        app: mongo-dev
     spec:
       containers:
-        - name: client
-          image: thinhbuihong/client
+        - name: mongo-dev
+          image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: client-srv
+  name: mongo-dev-srv
 spec:
   selector:
-    app: client
+    app: mongo-dev
   ports:
-    - name: client
+    - name: db
       protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 27017
+      targetPort: 27017
